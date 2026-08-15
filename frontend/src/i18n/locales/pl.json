@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "home": "Główna",
+    "categories": "Kategorie",
+    "expenses": "Wydatki",
+    "subscriptions": "Subskrypcje"
+  },
+  "dashboard": {
+    "title": "Pulpit główny",
+    "subtitle": "Wybierz sekcję, do której chcesz przejść:",
+    "categories": {
+      "title": "Kategorie",
+      "description": "Zarządzaj kategoriami swoich przychodów i wydatków."
+    },
+    "expenses": {
+      "title": "Wydatki",
+      "description": "Przeglądaj, dodawaj i analizuj codzienne transakcje."
+    },
+    "subscriptions": {
+      "title": "Subskrypcje",
+      "description": "Kontroluj stałe, odnawialne płatności i abonamenty."
+    }
+  },
+  "theme": {
+    "light": "☀️ Jasny",
+    "dark": "🌙 Ciemny"
+  },
+  "categories": {
+    "title": "Kategorie",
+    "edit": "Edytuj kategorię",
+    "add": "Dodaj nową kategorię",
+    "nameLabel": "Nazwa kategorii",
+    "namePlaceholder": "np. Zakupy spożywcze",
+    "iconLabel": "Ikona",
+    "iconPlaceholder": "np. 🛒",
+    "confirmDelete": "Czy na pewno chcesz usunąć tę kategorię?",
+    "empty": "Brak kategorii. Dodaj pierwszą powyżej!"
+  },
+  "expenses": {
+    "title": "Wydatki",
+    "edit": "Edytuj wydatek",
+    "add": "Dodaj nowy wydatek",
+    "titleLabel": "Tytuł",
+    "titlePlaceholder": "np. Zakupy w Biedronce",
+    "amountLabel": "Kwota",
+    "currencyLabel": "Waluta",
+    "categoryLabel": "Kategoria",
+    "categoryPlaceholder": "Wybierz kategorię",
+    "confirmDelete": "Czy na pewno chcesz usunąć ten wydatek?",
+    "empty": "Brak wydatków. Dodaj pierwszy powyżej!"
+  },
+  "subscriptions": {
+    "title": "Subskrypcje",
+    "edit": "Edytuj subskrypcję",
+    "add": "Dodaj nową subskrypcję",
+    "nameLabel": "Nazwa",
+    "namePlaceholder": "np. Netflix",
+    "amountLabel": "Kwota",
+    "currencyLabel": "Waluta",
+    "nextPaymentDateLabel": "Następna płatność",
+    "categoryLabel": "Kategoria",
+    "categoryPlaceholder": "Wybierz kategorię",
+    "confirmDelete": "Czy na pewno chcesz usunąć tę subskrypcję?",
+    "empty": "Brak subskrypcji. Dodaj pierwszą powyżej!"
+  },
+  "common": {
+    "save": "Zapisz",
+    "add": "Dodaj",
+    "cancel": "Anuluj",
+    "loading": "Ładowanie...",
+    "edit": "Edytuj",
+    "delete": "Usuń"
+  }
+}
