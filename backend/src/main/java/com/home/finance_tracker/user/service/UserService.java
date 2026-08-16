@@ -1,5 +1,7 @@
 package com.home.finance_tracker.user.service;
 
+import com.home.finance_tracker.core.shared.infrastructure.exception.AppException;
+import com.home.finance_tracker.core.shared.infrastructure.exception.ErrorCode;
 import com.home.finance_tracker.user.dto.UserRequestDTO;
 import com.home.finance_tracker.user.dto.UserResponseDTO;
 import com.home.finance_tracker.user.entity.User;
@@ -19,10 +21,10 @@ public class UserService {
 
     public UserResponseDTO createUser(UserRequestDTO dto){
         if(userRepository.existsByUsername(dto.getUsername())){
-            throw new IllegalArgumentException("Username already taken");
+            throw new AppException(ErrorCode.USER_USERNAME_TAKEN);
         }
         if(userRepository.existsByEmail(dto.getEmail())){
-            throw new IllegalArgumentException("Email already registered");
+            throw new AppException(ErrorCode.USER_EMAIL_TAKEN);
         }
 
         User user = userMapper.toEntity(dto);
@@ -32,10 +34,10 @@ public class UserService {
 
     public UserResponseDTO getUser(Long userId){
         if(userId == null){
-            throw new IllegalArgumentException("User id cannot be null");
+            throw new AppException(ErrorCode.INVALID_ID);
         }
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         return userMapper.toDTO(user);
     }
 
@@ -48,7 +50,7 @@ public class UserService {
 
     public void deleteUser(Long id){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userRepository.delete(user);
     }
 }

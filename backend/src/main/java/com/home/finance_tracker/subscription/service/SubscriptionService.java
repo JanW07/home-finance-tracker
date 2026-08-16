@@ -1,5 +1,7 @@
 package com.home.finance_tracker.subscription.service;
 
+import com.home.finance_tracker.core.shared.infrastructure.exception.AppException;
+import com.home.finance_tracker.core.shared.infrastructure.exception.ErrorCode;
 import com.home.finance_tracker.subscription.dto.SubscriptionRequestDTO;
 import com.home.finance_tracker.subscription.dto.SubscriptionResponseDTO;
 import com.home.finance_tracker.category.entity.Category;
@@ -29,7 +31,7 @@ public class SubscriptionService {
         User currentUser = currentUserProvider.getLoggedInUser();
 
         Category category = categoryRepository.findByIdAndUserId(dto.getCategoryId(), currentUser.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
 
         Subscription subscription = subscriptionMapper.toEntity(dto);
         subscription.setCategory(category);
@@ -42,12 +44,12 @@ public class SubscriptionService {
 
     public SubscriptionResponseDTO getSubscription(Long subscriptionId){
         if(subscriptionId == null){
-            throw new IllegalArgumentException("Subscription id cannot be null");
+            throw new AppException(ErrorCode.INVALID_ID);
         }
         User currentUser = currentUserProvider.getLoggedInUser();
 
         Subscription subscription = subscriptionRepository.findByIdAndUserId(subscriptionId, currentUser.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Subscription not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.SUBSCRIPTION_NOT_FOUND));
         return subscriptionMapper.toDTO(subscription);
     }
 
@@ -64,11 +66,11 @@ public class SubscriptionService {
         User currentUser = currentUserProvider.getLoggedInUser();
 
         Subscription subscription = subscriptionRepository.findByIdAndUserId(id, currentUser.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Subscription not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.SUBSCRIPTION_NOT_FOUND));
 
         if(dto.getCategoryId() != null){
             Category category = categoryRepository.findByIdAndUserId(dto.getCategoryId(), currentUser.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+                    .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
             subscription.setCategory(category);
         }
 
@@ -82,7 +84,7 @@ public class SubscriptionService {
         User currentUser = currentUserProvider.getLoggedInUser();
 
         Subscription subscription = subscriptionRepository.findByIdAndUserId(id, currentUser.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Subscription not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.SUBSCRIPTION_NOT_FOUND));
         subscription.setActive(false);
         subscriptionRepository.save(subscription);
 

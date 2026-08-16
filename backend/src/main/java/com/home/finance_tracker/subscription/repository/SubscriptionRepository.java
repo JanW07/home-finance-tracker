@@ -11,4 +11,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     List<Subscription> findByUserId(Long userId);
     List<Subscription> findByCategoryIdAndUserId(Long categoryId, Long userId);
     Optional<Subscription> findByIdAndUserId(Long id, Long userId);
+
+    boolean existsByCategoryIdAndUserId(Long categoryId, Long userId);
 }
