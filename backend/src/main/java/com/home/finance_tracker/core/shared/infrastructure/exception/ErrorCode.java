@@ -19,8 +19,9 @@ public enum ErrorCode {
 
     // SUBSCRIPTION
     SUBSCRIPTION_NOT_FOUND("subscription.error.not_found", HttpStatus.NOT_FOUND),
+    SUBSCRIPTION_STATUS_NOT_FOUND("subscription.error.status_not_found", HttpStatus.NOT_FOUND),
 
-    // SUBSCRIPTION
+    // TRANSACTION
     TRANSACTION_NOT_FOUND("transaction.error.not_found", HttpStatus.NOT_FOUND),
 
     // USER
