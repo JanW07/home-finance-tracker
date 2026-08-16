@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 export const Navbar: React.FC = () => {
   const { t } = useTranslation();
-
   return (
     <nav className="main-nav" aria-label="Main Navigation">
       <Link to="/" className="nav-brand">
@@ -17,11 +16,8 @@ export const Navbar: React.FC = () => {
         <NavLink to="/categories" className={({ isActive }) => (isActive ? 'active' : '')}>
           {t('nav.categories')}
         </NavLink>
-        <NavLink to="/expenses" className={({ isActive }) => (isActive ? 'active' : '')}>
-          {t('nav.expenses')}
-        </NavLink>
-        <NavLink to="/subscriptions" className={({ isActive }) => (isActive ? 'active' : '')}>
-          {t('nav.subscriptions')}
+        <NavLink to="/transactions" className={({ isActive }) => (isActive ? 'active' : '')}>
+          {t('nav.transactions')}
         </NavLink>
       </div>
     </nav>
