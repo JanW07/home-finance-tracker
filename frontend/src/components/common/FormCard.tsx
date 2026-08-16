@@ -6,6 +6,8 @@ interface FormCardProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
   className?: string;
+  /** Gdy true, pomija własny tytuł i obramowanie karty — do użycia wewnątrz Modal, który już je zapewnia. */
+  bare?: boolean;
 }
 
 export const FormCard: React.FC<FormCardProps> = ({
@@ -13,10 +15,11 @@ export const FormCard: React.FC<FormCardProps> = ({
   onSubmit,
   children,
   className = '',
+  bare = false,
 }) => {
   return (
-    <form className={`form-card ${className}`} onSubmit={onSubmit}>
-      <h3 className="form-card-title">{title}</h3>
+    <form className={bare ? className : `form-card ${className}`} onSubmit={onSubmit}>
+      {!bare && <h3 className="form-card-title">{title}</h3>}
       <div className="form-card-content">{children}</div>
     </form>
   );

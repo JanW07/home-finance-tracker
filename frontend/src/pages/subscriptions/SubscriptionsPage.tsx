@@ -6,6 +6,8 @@ import type { SubscriptionResponseDTO, SubscriptionRequestDTO } from '../../type
 import type { CategoryResponseDTO } from '../../types/category';
 import { SubscriptionForm } from './SubscriptionForm';
 import { SubscriptionList } from './SubscriptionList';
+import { Button } from '../../components/common/Button';
+import { Modal } from '../../components/common/Modal';
 
 export const SubscriptionsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -14,6 +16,7 @@ export const SubscriptionsPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [editingSubscription, setEditingSubscription] = useState<SubscriptionResponseDTO | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -36,6 +39,21 @@ export const SubscriptionsPage: React.FC = () => {
     fetchData();
   }, []);
 
+  const openAddModal = () => {
+    setEditingSubscription(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (subscription: SubscriptionResponseDTO) => {
+    setEditingSubscription(subscription);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setEditingSubscription(null);
+  };
+
   const handleFormSubmit = async (dto: SubscriptionRequestDTO) => {
     try {
       if (editingSubscription) {
@@ -43,11 +61,11 @@ export const SubscriptionsPage: React.FC = () => {
         setSubscriptions((prev) =>
           prev.map((item) => (item.id === editingSubscription.id ? updated : item))
         );
-        setEditingSubscription(null);
       } else {
         const created = await subscriptionService.create(dto);
         setSubscriptions((prev) => [...prev, created]);
       }
+      closeModal();
     } catch (err) {
       alert((err as Error).message);
     }
@@ -60,7 +78,7 @@ export const SubscriptionsPage: React.FC = () => {
       await subscriptionService.delete(id);
       setSubscriptions((prev) => prev.filter((item) => item.id !== id));
       if (editingSubscription?.id === id) {
-        setEditingSubscription(null);
+        closeModal();
       }
     } catch (err) {
       alert((err as Error).message);
@@ -69,16 +87,12 @@ export const SubscriptionsPage: React.FC = () => {
 
   return (
     <div className="list-page">
-      <header className="page-header">
+      <header className="page-header page-header-row">
         <h1>{t('subscriptions.title')}</h1>
+        <Button variant="primary" onClick={openAddModal}>
+          + {t('subscriptions.add')}
+        </Button>
       </header>
-
-      <SubscriptionForm
-        editingSubscription={editingSubscription}
-        categories={categories}
-        onSubmit={handleFormSubmit}
-        onCancel={() => setEditingSubscription(null)}
-      />
 
       {loading ? (
         <p>{t('common.loading')}</p>
@@ -87,10 +101,23 @@ export const SubscriptionsPage: React.FC = () => {
       ) : (
         <SubscriptionList
           subscriptions={subscriptions}
-          onEdit={setEditingSubscription}
+          onEdit={openEditModal}
           onDelete={handleDelete}
         />
       )}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={editingSubscription ? t('subscriptions.edit') : t('subscriptions.add')}
+      >
+        <SubscriptionForm
+          editingSubscription={editingSubscription}
+          categories={categories}
+          onSubmit={handleFormSubmit}
+          onCancel={closeModal}
+        />
+      </Modal>
     </div>
   );
 };

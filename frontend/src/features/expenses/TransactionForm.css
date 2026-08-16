@@ -1,0 +1,34 @@
+.transaction-type-toggle {
+  display: flex;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+}
+
+.type-toggle-btn {
+  flex: 1;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.type-toggle-btn + .type-toggle-btn {
+  border-left: 1.5px solid var(--border-color);
+}
+
+.type-toggle-btn.active.expense {
+  background-color: var(--color-expense-bg);
+  color: var(--color-expense);
+}
+
+.type-toggle-btn.active.income {
+  background-color: var(--color-income-bg);
+  color: var(--color-income);
+}

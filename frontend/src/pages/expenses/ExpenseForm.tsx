@@ -62,6 +62,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({
     <FormCard
       title={editingExpense ? t('expenses.edit') : t('expenses.add')}
       onSubmit={handleSubmit}
+      bare
     >
       <Input
         label={t('expenses.titleLabel')}

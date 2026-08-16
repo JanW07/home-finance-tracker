@@ -51,6 +51,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     <FormCard
       title={editingCategory ? t('categories.edit') : t('categories.add')}
       onSubmit={handleSubmit}
+      bare
     >
       <Input
         label={t('categories.nameLabel')}
@@ -64,7 +65,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         placeholder={t('categories.iconPlaceholder')}
         value={icon}
         onChange={(e) => setIcon(e.target.value)}
-        maxLength={4}
+        maxLength={2}
       />
       <div className="form-actions">
         <Button type="submit" variant="primary" isLoading={isSubmitting}>

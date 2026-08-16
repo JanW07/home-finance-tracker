@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, type AxiosResponse } from 'axios';
 
 interface SpringErrorResponse {
   timestamp: string;
@@ -14,16 +14,14 @@ export interface ApiError {
 }
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 apiClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response: AxiosResponse) => response,
   (error: AxiosError<SpringErrorResponse>) => {
     let customError: ApiError;
 
@@ -36,17 +34,14 @@ apiClient.interceptors.response.use(
           ? springError.message
           : 'Wystąpił błąd podczas przetwarzania żądania.';
 
-      customError = {
-        message,
-        status,
-      };
+      customError = { message, status };
     } else if (error.request) {
       customError = {
-        message: 'Network error — is the backend running?',
+        message: 'Błąd sieci — czy serwer backendowy działa?',
       };
     } else {
       customError = {
-        message: error.message || 'An unexpected error occurred.',
+        message: error.message || 'Wystąpił nieoczekiwany błąd.',
       };
     }
 

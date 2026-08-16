@@ -1,39 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
 :root {
-  /* (Default) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
+  /* Dark — motyw domyślny */
+  --bg-primary: #15131e;
+  --bg-secondary: #1b1826;
+  --bg-card: #211e30;
+  --bg-card-hover: #272437;
+
+  --text-primary: #f5f1ea;
+  --text-secondary: #a79fbe;
+  --text-muted: #766e8c;
+
+  --border-color: #322d45;
+  --border-color-strong: #423b5c;
+
+  --accent-color: #f5a623;
+  --accent-hover: #ffb84d;
+  --on-accent: #211405;
+
+  --color-income: #34d399;
+  --color-income-bg: rgba(52, 211, 153, 0.16);
+  --color-expense: #fb7185;
+  --color-expense-bg: rgba(251, 113, 133, 0.16);
+  --error-color: var(--color-expense);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.28);
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --shadow-focus: 0 0 0 3px rgba(245, 166, 35, 0.25);
+
+  --font-heading: 'Sora', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+[data-theme='light'] {
+  --bg-primary: #fff9f2;
+  --bg-secondary: #fdf3e7;
   --bg-card: #ffffff;
+  --bg-card-hover: #fff6ea;
 
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
+  --text-primary: #241f33;
+  --text-secondary: #6b6480;
+  --text-muted: #948da8;
 
-  --border-color: #e9ecef;
+  --border-color: #ede6da;
+  --border-color-strong: #e0d5c3;
 
-  --accent-color: #2563eb;       /* Główny niebieski */
-  --accent-hover: #1d4ed8;
-  --error-color: #dc2626;        /* Czerwony dla błędów/usuwania */
+  --accent-color: #c97a12;
+  --accent-hover: #b06c0f;
+  --on-accent: #fffaf2;
+
+  --color-income: #16a34a;
+  --color-income-bg: rgba(22, 163, 74, 0.1);
+  --color-expense: #e11d48;
+  --color-expense-bg: rgba(225, 29, 72, 0.1);
+  --error-color: var(--color-expense);
+
+  --shadow-card: 0 1px 3px rgba(36, 31, 51, 0.06), 0 8px 24px rgba(36, 31, 51, 0.04);
+  --shadow-float: 0 16px 40px rgba(36, 31, 51, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(201, 122, 18, 0.18);
 }
 
-[data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-
-  --border-color: #334155;
-
-  --accent-color: #3b82f6;
-  --accent-hover: #60a5fa;
-  --error-color: #ef4444;
+* {
+  box-sizing: border-box;
 }
 
-/* Globalne zresetowanie i zastosowanie zmiennych */
 body {
   margin: 0;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: system-ui, -apple-system, sans-serif;
-  transition: background-color 0.2s, color 0.2s;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+
+a {
+  color: inherit;
+}
+
+/* Klasa pomocnicza do kwot i innych danych liczbowych — tabular nums dla spokojnego rytmu cyfr */
+.mono-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background-color: var(--accent-color);
+  color: var(--on-accent);
 }

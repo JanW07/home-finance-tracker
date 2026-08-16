@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ExpenseResponseDTO } from '../../types/expense';
 import { Button } from '../../components/common/Button';
+import { getDisplayIcon } from '../../utils/icon';
 
 interface ExpenseListItemProps {
   expense: ExpenseResponseDTO;
@@ -14,10 +15,10 @@ export const ExpenseListItem: React.FC<ExpenseListItemProps> = ({ expense, onEdi
 
   return (
     <div className="item-card">
-      <span className="item-icon">{expense.category.icon || '💸'}</span>
+      <span className="item-icon">{getDisplayIcon(expense.category.icon, '💸')}</span>
       <div className="item-body">
-        <span className="item-title">{expense.title}</span>
-        <span className="item-subtitle">
+        <span className="item-title" title={expense.title}>{expense.title}</span>
+        <span className="item-subtitle mono-figure">
           {expense.amount} {expense.currency} · {expense.category.name}
         </span>
       </div>

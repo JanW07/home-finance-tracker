@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { CategoryResponseDTO } from '../../types/category';
 import { Button } from '../../components/common/Button';
+import { getDisplayIcon } from '../../utils/icon';
 
 interface CategoryListItemProps {
   category: CategoryResponseDTO;
@@ -14,8 +15,10 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({ category, on
 
   return (
     <div className="item-card">
-      <span className="item-icon">{category.icon || '📁'}</span>
-      <span className="item-title">{category.name}</span>
+      <span className="item-icon">{getDisplayIcon(category.icon, '📁')}</span>
+      <div className="item-body">
+        <span className="item-title" title={category.name}>{category.name}</span>
+      </div>
       <div className="item-actions">
         <Button
           variant="outline"

@@ -72,6 +72,7 @@ export const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
     <FormCard
       title={editingSubscription ? t('subscriptions.edit') : t('subscriptions.add')}
       onSubmit={handleSubmit}
+      bare
     >
       <Input
         label={t('subscriptions.nameLabel')}

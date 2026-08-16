@@ -1,38 +1,25 @@
+import apiClient from './client';
 import type { CategoryResponseDTO, CategoryRequestDTO } from '../types/category';
 
-const API_BASE_URL = 'http://localhost:8080/api/categories';
+const ENDPOINT = '/categories';
 
 export const categoryService = {
-  async getAll(): Promise<CategoryResponseDTO[]> {
-    const res = await fetch(API_BASE_URL);
-    if (!res.ok) throw new Error('Nie udało się pobrać kategorii');
-    return res.json();
+  getAll: async (): Promise<CategoryResponseDTO[]> => {
+    const response = await apiClient.get<CategoryResponseDTO[]>(ENDPOINT);
+    return response.data;
   },
 
-  async create(data: CategoryRequestDTO): Promise<CategoryResponseDTO> {
-    const res = await fetch(API_BASE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error('Nie udało się dodać kategorii');
-    return res.json();
+  create: async (data: CategoryRequestDTO): Promise<CategoryResponseDTO> => {
+    const response = await apiClient.post<CategoryResponseDTO>(ENDPOINT, data);
+    return response.data;
   },
 
-  async update(id: number, data: CategoryRequestDTO): Promise<CategoryResponseDTO> {
-    const res = await fetch(`${API_BASE_URL}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error('Nie udało się zaktualizować kategorii');
-    return res.json();
+  update: async (id: number, data: CategoryRequestDTO): Promise<CategoryResponseDTO> => {
+    const response = await apiClient.patch<CategoryResponseDTO>(`${ENDPOINT}/${id}`, data);
+    return response.data;
   },
 
-  async delete(id: number): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/${id}`, {
-      method: 'DELETE',
-    });
-    if (!res.ok) throw new Error('Nie udało się usunąć kategorii');
+  delete: async (id: number): Promise<void> => {
+    await apiClient.delete(`${ENDPOINT}/${id}`);
   },
 };

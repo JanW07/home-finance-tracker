@@ -4,6 +4,8 @@ import { categoryService } from '../../api/categoryService';
 import type { CategoryResponseDTO, CategoryRequestDTO } from '../../types/category';
 import { CategoryForm } from './CategoryForm';
 import { CategoryList } from './CategoryList';
+import { Button } from '../../components/common/Button';
+import { Modal } from '../../components/common/Modal';
 
 export const CategoriesPage: React.FC = () => {
   const { t } = useTranslation();
@@ -11,6 +13,7 @@ export const CategoriesPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [editingCategory, setEditingCategory] = useState<CategoryResponseDTO | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -29,6 +32,21 @@ export const CategoriesPage: React.FC = () => {
     fetchCategories();
   }, []);
 
+  const openAddModal = () => {
+    setEditingCategory(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (category: CategoryResponseDTO) => {
+    setEditingCategory(category);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setEditingCategory(null);
+  };
+
   const handleFormSubmit = async (dto: CategoryRequestDTO) => {
     try {
       if (editingCategory) {
@@ -36,11 +54,11 @@ export const CategoriesPage: React.FC = () => {
         setCategories((prev) =>
           prev.map((item) => (item.id === editingCategory.id ? updated : item))
         );
-        setEditingCategory(null);
       } else {
         const created = await categoryService.create(dto);
         setCategories((prev) => [...prev, created]);
       }
+      closeModal();
     } catch (err) {
       alert((err as Error).message);
     }
@@ -53,7 +71,7 @@ export const CategoriesPage: React.FC = () => {
       await categoryService.delete(id);
       setCategories((prev) => prev.filter((item) => item.id !== id));
       if (editingCategory?.id === id) {
-        setEditingCategory(null);
+        closeModal();
       }
     } catch (err) {
       alert((err as Error).message);
@@ -62,23 +80,32 @@ export const CategoriesPage: React.FC = () => {
 
   return (
     <div className="list-page">
-      <header className="page-header">
+      <header className="page-header page-header-row">
         <h1>{t('categories.title')}</h1>
+        <Button variant="primary" onClick={openAddModal}>
+          + {t('categories.add')}
+        </Button>
       </header>
-
-      <CategoryForm
-        editingCategory={editingCategory}
-        onSubmit={handleFormSubmit}
-        onCancel={() => setEditingCategory(null)}
-      />
 
       {loading ? (
         <p>{t('common.loading')}</p>
       ) : error ? (
         <p className="error-message">{error}</p>
       ) : (
-        <CategoryList categories={categories} onEdit={setEditingCategory} onDelete={handleDelete} />
+        <CategoryList categories={categories} onEdit={openEditModal} onDelete={handleDelete} />
       )}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={editingCategory ? t('categories.edit') : t('categories.add')}
+      >
+        <CategoryForm
+          editingCategory={editingCategory}
+          onSubmit={handleFormSubmit}
+          onCancel={closeModal}
+        />
+      </Modal>
     </div>
   );
 };
