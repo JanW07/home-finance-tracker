@@ -1,4 +1,4 @@
-package com.home.finance_tracker.subscription.entity;
+package com.home.finance_tracker.transaction.entity;
 
 import com.home.finance_tracker.category.entity.Category;
 import com.home.finance_tracker.user.entity.User;
@@ -11,32 +11,38 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "subscriptions")
+@Table(name = "transactions")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Subscription {
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, length = 100)
-    private String name;
+    @Column(nullable = false, length = 150)
+    private String title;
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
 
     @Column(nullable = false, length = 3)
-    private String currency;
+    private String currency = "PLN";
 
-    @Column(nullable = false, length = 20)
-    private String billingPeriod;
+    @Column(name = "transaction_date", nullable = false)
+    private LocalDate transactionDate;
 
-    @Column(name = "next_payment_date", nullable = false)
-    private LocalDate nextPaymentDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transaction_type", nullable = false, length = 20)
+    private TransactionType transactionType;
 
-    @Column(nullable = false)
-    private Boolean active;
+    @Column(name = "is_subscription", nullable = false)
+    private Boolean isSubscription = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "billing_period", length = 20)
+    private BillingPeriod billingPeriod;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
