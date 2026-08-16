@@ -1,6 +1,7 @@
 package com.home.finance_tracker.transaction.entity;
 
 import com.home.finance_tracker.category.entity.Category;
+import com.home.finance_tracker.subscription.entity.Subscription;
 import com.home.finance_tracker.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -37,18 +38,15 @@ public class Transaction {
     @Column(name = "transaction_type", nullable = false, length = 20)
     private TransactionType transactionType;
 
-    @Column(name = "is_subscription", nullable = false)
-    private Boolean isSubscription = false;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "billing_period", length = 20)
-    private BillingPeriod billingPeriod;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subscription_id", nullable = true)
+    private Subscription subscription;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

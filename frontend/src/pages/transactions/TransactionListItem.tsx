@@ -8,7 +8,6 @@ interface TransactionListItemProps {
   onEdit: (transaction: TransactionResponseDTO) => void;
   onDelete: (id: number) => void;
 }
-
 export const TransactionListItem: React.FC<TransactionListItemProps> = ({
   transaction,
   onEdit,
@@ -25,7 +24,7 @@ export const TransactionListItem: React.FC<TransactionListItemProps> = ({
       <div className="item-body">
         <div className="item-header-row">
           <span className="item-title" title={transaction.title}>{transaction.title}</span>
-          {transaction.isSubscription && (
+          {transaction.subscriptionId != null && (
             <Badge tone="accent">🔄 {t('transactions.subscriptionBadge')}</Badge>
           )}
         </div>
@@ -36,22 +35,10 @@ export const TransactionListItem: React.FC<TransactionListItemProps> = ({
           {isIncome ? '+' : '-'}{transaction.amount} {transaction.currency}
         </span>
         <div className="item-actions">
-          <Button
-            variant="outline"
-            size="sm"
-            className="btn-icon"
-            onClick={() => onEdit(transaction)}
-            title={t('common.edit')}
-          >
+          <Button variant="outline" size="sm" className="btn-icon" onClick={() => onEdit(transaction)} title={t('common.edit')}>
             ✏️
           </Button>
-          <Button
-            variant="danger"
-            size="sm"
-            className="btn-icon"
-            onClick={() => onDelete(transaction.id)}
-            title={t('common.delete')}
-          >
+          <Button variant="danger" size="sm" className="btn-icon" onClick={() => onDelete(transaction.id)} title={t('common.delete')}>
             🗑️
           </Button>
         </div>

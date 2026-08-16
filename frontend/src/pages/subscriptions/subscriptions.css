@@ -1,0 +1,7 @@
+.subscription-card-cancelled {
+  opacity: 0.5;
+  border-left-color: var(--color-border, rgba(255, 255, 255, 0.15));
+}
+.subscription-card-cancelled .item-title {
+  text-decoration: line-through;
+}

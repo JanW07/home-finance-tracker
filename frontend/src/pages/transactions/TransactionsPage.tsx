@@ -10,16 +10,19 @@ import { SummaryCard } from '../../features/dashboard/SummaryCard';
 import { TransactionList } from './TransactionList';
 import { Modal } from '../../components/common/Modal';
 import { TransactionForm } from './TransactionForm';
+import { useToast } from '../../context/ToastContext';
+import { useConfirm } from '../../context/ConfirmContext';
 
 export const TransactionsPage: React.FC = () => {
   const { t } = useTranslation();
+  const { showError } = useToast();
+  const confirm = useConfirm();
   const [transactions, setTransactions] = useState<TransactionResponseDTO[]>([]);
   const [categories, setCategories] = useState<CategoryResponseDTO[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [editingTransaction, setEditingTransaction] = useState<TransactionResponseDTO | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -36,26 +39,21 @@ export const TransactionsPage: React.FC = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
-
   const openAddModal = () => {
     setEditingTransaction(null);
     setIsModalOpen(true);
   };
-
   const openEditModal = (transaction: TransactionResponseDTO) => {
     setEditingTransaction(transaction);
     setIsModalOpen(true);
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
     setEditingTransaction(null);
   };
-
   const handleFormSubmit = async (dto: TransactionRequestDTO) => {
     try {
       if (editingTransaction) {
@@ -69,12 +67,15 @@ export const TransactionsPage: React.FC = () => {
       }
       closeModal();
     } catch (err) {
-      alert((err as Error).message);
+      showError((err as Error).message);
     }
   };
-
   const handleDelete = async (id: number) => {
-    if (!window.confirm(t('transactions.confirmDelete'))) return;
+    const confirmed = await confirm({
+      message: t('transactions.confirmDelete'),
+      danger: true,
+    });
+    if (!confirmed) return;
     try {
       await transactionService.delete(id);
       setTransactions((prev) => prev.filter((item) => item.id !== id));
@@ -82,10 +83,9 @@ export const TransactionsPage: React.FC = () => {
         closeModal();
       }
     } catch (err) {
-      alert((err as Error).message);
+      showError((err as Error).message);
     }
   };
-
   const totals = transactions.reduce(
     (acc, tx) => {
       const value = Number(tx.amount);
@@ -96,7 +96,6 @@ export const TransactionsPage: React.FC = () => {
     { income: 0, expense: 0 }
   );
   const balance = totals.income - totals.expense;
-
   return (
     <div className="list-page">
       <header className="page-header page-header-row">
@@ -105,7 +104,6 @@ export const TransactionsPage: React.FC = () => {
           + {t('transactions.add')}
         </Button>
       </header>
-
       {!loading && !error && transactions.length > 0 && (
         <div className="summary-strip">
           <SummaryCard
@@ -128,7 +126,6 @@ export const TransactionsPage: React.FC = () => {
           />
         </div>
       )}
-
       {loading ? (
         <p>{t('common.loading')}</p>
       ) : error ? (
@@ -140,7 +137,6 @@ export const TransactionsPage: React.FC = () => {
           onDelete={handleDelete}
         />
       )}
-
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
