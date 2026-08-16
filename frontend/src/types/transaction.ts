@@ -1,7 +1,6 @@
 import type { CategoryResponseDTO } from './category';
 
 export type TransactionType = 'EXPENSE' | 'INCOME';
-export type BillingPeriod = 'WEEKLY' | 'MONTHLY' | 'YEARLY';
 
 export interface TransactionRequestDTO {
   title: string;
@@ -10,8 +9,6 @@ export interface TransactionRequestDTO {
   transactionDate: string;
   transactionType: TransactionType;
   categoryId: number;
-  isSubscription?: boolean;
-  billingPeriod?: BillingPeriod;
 }
 
 export interface TransactionResponseDTO {
@@ -22,6 +19,5 @@ export interface TransactionResponseDTO {
   transactionDate: string;
   transactionType: TransactionType;
   category: CategoryResponseDTO;
-  isSubscription: boolean;
-  billingPeriod?: BillingPeriod;
+  subscriptionId: number | null;
 }

@@ -1,0 +1,63 @@
+.type-segmented {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 4px;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.type-segmented-thumb {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  border-radius: 10px;
+  background: var(--color-expense, #e5484d);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.22s ease;
+}
+
+.type-segmented.is-income .type-segmented-thumb {
+  transform: translateX(100%);
+  background: var(--color-income, #1fb579);
+}
+
+.type-segmented-option {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 11px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.type-segmented-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.type-segmented-option.active {
+  color: #fff;
+}
+
+.type-segmented-option:not(.active):hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 480px) {
+  .type-segmented-option {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}

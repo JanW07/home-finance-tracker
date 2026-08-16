@@ -10,7 +10,8 @@
   "nav": {
     "home": "Główna",
     "categories": "Kategorie",
-    "transactions": "Transakcje"
+    "transactions": "Transakcje",
+    "subscriptions": "Subskrypcje"
   },
   "dashboard": {
     "title": "Panel Główny",
@@ -22,6 +23,10 @@
     "transactions": {
       "title": "Transakcje",
       "description": "Przeglądaj i dodawaj transakcje oraz subskrypcje"
+    },
+    "subscriptions": {
+      "title": "Subskrypcje",
+      "description": "Zarządzaj subskrypcjami i płatnościami cyklicznymi"
     }
   },
   "theme": {
@@ -69,5 +74,23 @@
     "noCategories": "Najpierw dodaj kategorię",
     "subscriptionBadge": "Subskrypcja",
     "emptyHint": "Dodaj pierwszą transakcję powyżej"
+  },
+  "subscriptions": {
+    "title": "Subskrypcje",
+    "add": "Dodaj subskrypcję",
+    "edit": "Edytuj subskrypcję",
+    "empty": "Brak subskrypcji",
+    "emptyHint": "Dodaj swoją pierwszą subskrypcję, aby śledzić cykliczne płatności",
+    "summaryMonthly": "Miesięczny koszt",
+    "summaryActive": "Aktywne",
+    "titlePlaceholder": "np. Spotify, Netflix",
+    "nextBillingLabel": "Następna płatność",
+    "nextBillingShort": "Następna płatność",
+    "statusPaused": "Wstrzymana",
+    "statusCancelled": "Anulowana",
+    "pause": "Wstrzymaj",
+    "resume": "Wznów",
+    "cancel": "Anuluj subskrypcję",
+    "confirmDelete": "Czy na pewno chcesz usunąć tę subskrypcję?"
   }
 }

@@ -19,6 +19,9 @@ export const Navbar: React.FC = () => {
         <NavLink to="/transactions" className={({ isActive }) => (isActive ? 'active' : '')}>
           {t('nav.transactions')}
         </NavLink>
+        <NavLink to="/subscriptions" className={({ isActive }) => (isActive ? 'active' : '')}>
+          {t('nav.subscriptions')}
+        </NavLink>
       </div>
     </nav>
   );
