@@ -15,24 +15,15 @@ CREATE TABLE categories (
     user_id BIGINT REFERENCES users(id) ON DELETE SET NULL
 );
 
-CREATE TABLE subscriptions (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    amount NUMERIC(19, 2) NOT NULL,
-    currency VARCHAR(3) NOT NULL DEFAULT 'PLN',
-    billing_period VARCHAR(20) NOT NULL DEFAULT 'MONTHLY',
-    next_payment_date DATE NOT NULL,
-    active BOOLEAN NOT NULL DEFAULT TRUE,
-    category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE expenses (
+CREATE TABLE transactions (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(150) NOT NULL,
     amount NUMERIC(19, 2) NOT NULL,
     currency VARCHAR(3) NOT NULL DEFAULT 'PLN',
-    purchase_date TIMESTAMP NOT NULL,
+    transaction_date DATE NOT NULL,
+    transaction_type VARCHAR(20) NOT NULL,
+    is_subscription BOOLEAN NOT NULL DEFAULT FALSE,
+    billing_period VARCHAR(20),
     category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
     user_id BIGINT REFERENCES users(id) ON DELETE CASCADE
 );

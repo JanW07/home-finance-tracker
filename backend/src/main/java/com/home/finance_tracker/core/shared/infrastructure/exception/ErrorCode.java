@@ -20,6 +20,9 @@ public enum ErrorCode {
     // SUBSCRIPTION
     SUBSCRIPTION_NOT_FOUND("subscription.error.not_found", HttpStatus.NOT_FOUND),
 
+    // SUBSCRIPTION
+    TRANSACTION_NOT_FOUND("transaction.error.not_found", HttpStatus.NOT_FOUND),
+
     // USER
     USER_NOT_FOUND("user.error.not_found", HttpStatus.NOT_FOUND),
     USER_USERNAME_TAKEN("user.error.username_taken", HttpStatus.CONFLICT),

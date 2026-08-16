@@ -11,22 +11,15 @@ const NAV_CARDS: NavCardData[] = [
     icon: '🏷️',
   },
   {
-    titleKey: 'dashboard.expenses.title',
-    descriptionKey: 'dashboard.expenses.description',
-    path: '/expenses',
-    icon: '💸',
-  },
-  {
-    titleKey: 'dashboard.subscriptions.title',
-    descriptionKey: 'dashboard.subscriptions.description',
-    path: '/subscriptions',
-    icon: '🔄',
+    titleKey: 'dashboard.transactions.title',
+    descriptionKey: 'dashboard.transactions.description',
+    path: '/transactions',
+    icon: '💳',
   },
 ];
 
 export const NavCardGrid: React.FC = () => {
   const { t } = useTranslation();
-
   return (
     <div className="nav-card-grid">
       {NAV_CARDS.map((card) => (

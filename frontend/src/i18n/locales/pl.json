@@ -1,29 +1,32 @@
 {
+  "common": {
+    "add": "Dodaj",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "loading": "Ładowanie..."
+  },
   "nav": {
     "home": "Główna",
     "categories": "Kategorie",
-    "expenses": "Wydatki",
-    "subscriptions": "Subskrypcje"
+    "transactions": "Transakcje"
   },
   "dashboard": {
-    "title": "Pulpit główny",
-    "subtitle": "Wybierz sekcję, do której chcesz przejść:",
+    "title": "Panel Główny",
+    "subtitle": "Zarządzaj swoimi finansami w jednym miejscu",
     "categories": {
       "title": "Kategorie",
-      "description": "Zarządzaj kategoriami swoich przychodów i wydatków."
+      "description": "Zarządzaj kategoriami wydatków i przychodów"
     },
-    "expenses": {
-      "title": "Wydatki",
-      "description": "Przeglądaj, dodawaj i analizuj codzienne transakcje."
-    },
-    "subscriptions": {
-      "title": "Subskrypcje",
-      "description": "Kontroluj stałe, odnawialne płatności i abonamenty."
+    "transactions": {
+      "title": "Transakcje",
+      "description": "Przeglądaj i dodawaj transakcje oraz subskrypcje"
     }
   },
   "theme": {
-    "light": "☀️ Jasny",
-    "dark": "🌙 Ciemny"
+    "light": "Jasny",
+    "dark": "Ciemny"
   },
   "categories": {
     "title": "Kategorie",
@@ -36,39 +39,27 @@
     "confirmDelete": "Czy na pewno chcesz usunąć tę kategorię?",
     "empty": "Brak kategorii. Dodaj pierwszą powyżej!"
   },
-  "expenses": {
-    "title": "Wydatki",
-    "edit": "Edytuj wydatek",
-    "add": "Dodaj nowy wydatek",
-    "titleLabel": "Tytuł",
-    "titlePlaceholder": "np. Zakupy w Biedronce",
+  "transactions": {
+    "title": "Transakcje",
+    "add": "Dodaj transakcję",
+    "edit": "Edytuj transakcję",
+    "empty": "Brak transakcji do wyświetlenia",
+    "confirmDelete": "Czy na pewno chcesz usunąć tę transakcję?",
+    "expense": "Wydatek",
+    "income": "Przychód",
+    "titleLabel": "Tytuł / Nazwa",
+    "titlePlaceholder": "np. Zakupy spożywcze, Netflix",
     "amountLabel": "Kwota",
+    "dateLabel": "Data transakcji",
     "currencyLabel": "Waluta",
     "categoryLabel": "Kategoria",
     "categoryPlaceholder": "Wybierz kategorię",
-    "confirmDelete": "Czy na pewno chcesz usunąć ten wydatek?",
-    "empty": "Brak wydatków. Dodaj pierwszy powyżej!"
-  },
-  "subscriptions": {
-    "title": "Subskrypcje",
-    "edit": "Edytuj subskrypcję",
-    "add": "Dodaj nową subskrypcję",
-    "nameLabel": "Nazwa",
-    "namePlaceholder": "np. Netflix",
-    "amountLabel": "Kwota",
-    "currencyLabel": "Waluta",
-    "nextPaymentDateLabel": "Następna płatność",
-    "categoryLabel": "Kategoria",
-    "categoryPlaceholder": "Wybierz kategorię",
-    "confirmDelete": "Czy na pewno chcesz usunąć tę subskrypcję?",
-    "empty": "Brak subskrypcji. Dodaj pierwszą powyżej!"
-  },
-  "common": {
-    "save": "Zapisz",
-    "add": "Dodaj",
-    "cancel": "Anuluj",
-    "loading": "Ładowanie...",
-    "edit": "Edytuj",
-    "delete": "Usuń"
+    "isSubscription": "Płatność cykliczna / Subskrypcja",
+    "billingPeriod": "Okres rozliczeniowy",
+    "periods": {
+      "WEEKLY": "Tygodniowo",
+      "MONTHLY": "Miesięcznie",
+      "YEARLY": "Rocznie"
+    }
   }
 }

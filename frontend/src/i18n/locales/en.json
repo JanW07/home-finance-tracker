@@ -1,0 +1,50 @@
+{
+  "common": {
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading..."
+  },
+  "nav": {
+    "home": "Home",
+    "categories": "Categories",
+    "transactions": "Transactions"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your finances in one place",
+    "categories": {
+      "title": "Categories",
+      "description": "Manage expense and income categories"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "description": "View and manage transactions and subscriptions"
+    }
+  },
+  "transactions": {
+    "title": "Transactions",
+    "add": "Add transaction",
+    "edit": "Edit transaction",
+    "empty": "No transactions to display",
+    "confirmDelete": "Are you sure you want to delete this transaction?",
+    "expense": "Expense",
+    "income": "Income",
+    "titleLabel": "Title / Name",
+    "titlePlaceholder": "e.g., Groceries, Netflix",
+    "amountLabel": "Amount",
+    "dateLabel": "Transaction Date",
+    "currencyLabel": "Currency",
+    "categoryLabel": "Category",
+    "categoryPlaceholder": "Select category",
+    "isSubscription": "Recurring payment / Subscription",
+    "billingPeriod": "Billing period",
+    "periods": {
+      "WEEKLY": "Weekly",
+      "MONTHLY": "Monthly",
+      "YEARLY": "Yearly"
+    }
+  }
+}
