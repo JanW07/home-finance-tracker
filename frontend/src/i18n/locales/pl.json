@@ -60,6 +60,14 @@
       "WEEKLY": "Tygodniowo",
       "MONTHLY": "Miesięcznie",
       "YEARLY": "Rocznie"
-    }
+    },
+    "summaryIncome": "Przychody",
+    "summaryExpense": "Wydatki",
+    "summaryBalance": "Bilans",
+    "today": "Dziś",
+    "yesterday": "Wczoraj",
+    "noCategories": "Najpierw dodaj kategorię",
+    "subscriptionBadge": "Subskrypcja",
+    "emptyHint": "Dodaj pierwszą transakcję powyżej"
   }
 }

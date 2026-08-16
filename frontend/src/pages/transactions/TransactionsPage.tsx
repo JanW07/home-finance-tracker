@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { TransactionResponseDTO, TransactionRequestDTO } from '../../types/transaction';
+import './transactions.css';
+import type { TransactionRequestDTO, TransactionResponseDTO } from '../../types/transaction';
 import type { CategoryResponseDTO } from '../../types/category';
+import { useEffect, useState } from 'react';
 import { transactionService } from '../../api/transactionService';
 import { categoryService } from '../../api/categoryService';
-import { TransactionList } from './TransactionList';
-import { TransactionForm } from './TransactionForm';
 import { Button } from '../../components/common/Button';
+import { SummaryCard } from '../../features/dashboard/SummaryCard';
+import { TransactionList } from './TransactionList';
 import { Modal } from '../../components/common/Modal';
+import { TransactionForm } from './TransactionForm';
 
 export const TransactionsPage: React.FC = () => {
   const { t } = useTranslation();
@@ -84,6 +86,17 @@ export const TransactionsPage: React.FC = () => {
     }
   };
 
+  const totals = transactions.reduce(
+    (acc, tx) => {
+      const value = Number(tx.amount);
+      if (tx.transactionType === 'INCOME') acc.income += value;
+      else acc.expense += value;
+      return acc;
+    },
+    { income: 0, expense: 0 }
+  );
+  const balance = totals.income - totals.expense;
+
   return (
     <div className="list-page">
       <header className="page-header page-header-row">
@@ -92,6 +105,29 @@ export const TransactionsPage: React.FC = () => {
           + {t('transactions.add')}
         </Button>
       </header>
+
+      {!loading && !error && transactions.length > 0 && (
+        <div className="summary-strip">
+          <SummaryCard
+            label={t('transactions.summaryIncome')}
+            value={`+${totals.income.toFixed(2)} PLN`}
+            tone="positive"
+            icon="💰"
+          />
+          <SummaryCard
+            label={t('transactions.summaryExpense')}
+            value={`-${totals.expense.toFixed(2)} PLN`}
+            tone="negative"
+            icon="💸"
+          />
+          <SummaryCard
+            label={t('transactions.summaryBalance')}
+            value={`${balance >= 0 ? '+' : ''}${balance.toFixed(2)} PLN`}
+            tone={balance >= 0 ? 'positive' : 'negative'}
+            icon="⚖️"
+          />
+        </div>
+      )}
 
       {loading ? (
         <p>{t('common.loading')}</p>
@@ -109,6 +145,7 @@ export const TransactionsPage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
         title={editingTransaction ? t('transactions.edit') : t('transactions.add')}
+        size="lg"
       >
         <TransactionForm
           editingTransaction={editingTransaction}
@@ -120,5 +157,4 @@ export const TransactionsPage: React.FC = () => {
     </div>
   );
 };
-
 export default TransactionsPage;

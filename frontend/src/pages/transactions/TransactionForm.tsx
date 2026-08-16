@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FormCard } from '../../components/common/FormCard';
-import { Input } from '../../components/common/Input';
-import { Select } from '../../components/common/Select';
-import { Button } from '../../components/common/Button';
-import type { TransactionResponseDTO, TransactionRequestDTO, TransactionType, BillingPeriod } from '../../types/transaction';
-import type { CategoryResponseDTO } from '../../types/category';
+import { useEffect, useState } from "react";
+import { Button } from "../../components/common/Button";
+import { FormCard } from "../../components/common/FormCard";
+import { Input } from "../../components/common/Input";
+import type { CategoryResponseDTO } from "../../types/category";
+import type { BillingPeriod, TransactionRequestDTO, TransactionResponseDTO, TransactionType } from "../../types/transaction";
+import { useTranslation } from "react-i18next";
 
 export interface TransactionFormProps {
   editingTransaction: TransactionResponseDTO | null;
@@ -15,6 +14,11 @@ export interface TransactionFormProps {
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
+const yesterday = () => {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+};
 
 export const TransactionForm: React.FC<TransactionFormProps> = ({
   editingTransaction,
@@ -23,7 +27,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   onCancel,
 }) => {
   const { t } = useTranslation();
-  
   const [transactionType, setTransactionType] = useState<TransactionType>('EXPENSE');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
@@ -59,7 +62,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!title.trim() || !amount || !categoryId) return;
-
     try {
       setIsSubmitting(true);
       await onSubmit({
@@ -72,7 +74,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         isSubscription,
         billingPeriod: isSubscription ? billingPeriod : undefined,
       });
-      
       if (!editingTransaction) {
         setTitle('');
         setAmount('');
@@ -84,6 +85,8 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     }
   };
 
+  const isExpense = transactionType === 'EXPENSE';
+
   return (
     <FormCard
       title={editingTransaction ? t('transactions.edit') : t('transactions.add')}
@@ -93,18 +96,43 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       <div className="transaction-type-toggle" role="radiogroup">
         <button
           type="button"
-          className={`type-toggle-btn ${transactionType === 'EXPENSE' ? 'active expense' : ''}`}
+          className={`type-toggle-btn ${isExpense ? 'active expense' : ''}`}
           onClick={() => setTransactionType('EXPENSE')}
         >
-          {t('transactions.expense')}
+          💸 {t('transactions.expense')}
         </button>
         <button
           type="button"
-          className={`type-toggle-btn ${transactionType === 'INCOME' ? 'active income' : ''}`}
+          className={`type-toggle-btn ${!isExpense ? 'active income' : ''}`}
           onClick={() => setTransactionType('INCOME')}
         >
-          {t('transactions.income')}
+          💰 {t('transactions.income')}
         </button>
+      </div>
+
+      <div className={`amount-hero ${isExpense ? 'amount-hero-expense' : 'amount-hero-income'}`}>
+        <label htmlFor="amount" className="amount-hero-label">{t('transactions.amountLabel')}</label>
+        <div className="amount-hero-row">
+          <span className="amount-hero-sign">{isExpense ? '−' : '+'}</span>
+          <input
+            id="amount"
+            className="amount-hero-input"
+            type="number"
+            step="0.01"
+            min="0"
+            placeholder="0.00"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+          <input
+            className="amount-hero-currency"
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value.toUpperCase())}
+            maxLength={3}
+            required
+          />
+        </div>
       </div>
 
       <Input
@@ -115,64 +143,83 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         required
       />
 
-      <Input
-        label={t('transactions.amountLabel')}
-        type="number"
-        step="0.01"
-        min="0"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        required
-      />
-
-      <Input
-        label={t('transactions.dateLabel')}
-        type="date"
-        value={transactionDate}
-        onChange={(e) => setTransactionDate(e.target.value)}
-        required
-      />
-
-      <Input
-        label={t('transactions.currencyLabel')}
-        value={currency}
-        onChange={(e) => setCurrency(e.target.value)}
-        maxLength={3}
-        required
-      />
-
-      <Select
-        label={t('transactions.categoryLabel')}
-        placeholder={t('transactions.categoryPlaceholder')}
-        value={categoryId}
-        onChange={(e) => setCategoryId(e.target.value)}
-        options={categories.map((c) => ({ value: c.id, label: c.name }))}
-        required
-      />
-
-      <div className="form-field-checkbox">
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={isSubscription}
-            onChange={(e) => setIsSubscription(e.target.checked)}
-          />
-          {t('transactions.isSubscription')}
-        </label>
+      <div className="form-field">
+        <label className="form-label">{t('transactions.categoryLabel')}</label>
+        <div className="category-chip-grid" role="radiogroup">
+          {categories.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              className={`category-chip ${String(c.id) === categoryId ? 'active' : ''}`}
+              onClick={() => setCategoryId(String(c.id))}
+            >
+              <span className="category-chip-icon">{c.icon || '🏷️'}</span>
+              <span className="category-chip-name">{c.name}</span>
+            </button>
+          ))}
+        </div>
+        {categories.length === 0 && (
+          <p className="field-hint">{t('transactions.noCategories')}</p>
+        )}
       </div>
 
-      {isSubscription && (
-        <Select
-          label={t('transactions.billingPeriod')}
-          value={billingPeriod}
-          onChange={(e) => setBillingPeriod(e.target.value as BillingPeriod)}
-          options={[
-            { value: 'WEEKLY', label: t('transactions.periods.WEEKLY') },
-            { value: 'MONTHLY', label: t('transactions.periods.MONTHLY') },
-            { value: 'YEARLY', label: t('transactions.periods.YEARLY') },
-          ]}
-        />
-      )}
+      <div className="form-field">
+        <label htmlFor="transactionDate" className="form-label">{t('transactions.dateLabel')}</label>
+        <div className="date-field-row">
+          <input
+            id="transactionDate"
+            type="date"
+            className="form-input"
+            value={transactionDate}
+            onChange={(e) => setTransactionDate(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className={`chip-btn ${transactionDate === today() ? 'active' : ''}`}
+            onClick={() => setTransactionDate(today())}
+          >
+            {t('transactions.today')}
+          </button>
+          <button
+            type="button"
+            className={`chip-btn ${transactionDate === yesterday() ? 'active' : ''}`}
+            onClick={() => setTransactionDate(yesterday())}
+          >
+            {t('transactions.yesterday')}
+          </button>
+        </div>
+      </div>
+
+      <div className="subscription-toggle-row">
+        <label className="switch-label">
+          <span className="switch">
+            <input
+              type="checkbox"
+              checked={isSubscription}
+              onChange={(e) => setIsSubscription(e.target.checked)}
+            />
+            <span className="switch-track">
+              <span className="switch-thumb" />
+            </span>
+          </span>
+          <span>{t('transactions.isSubscription')}</span>
+        </label>
+        {isSubscription && (
+          <div className="billing-period-toggle" role="radiogroup">
+            {(['WEEKLY', 'MONTHLY', 'YEARLY'] as BillingPeriod[]).map((period) => (
+              <button
+                key={period}
+                type="button"
+                className={`period-chip ${billingPeriod === period ? 'active' : ''}`}
+                onClick={() => setBillingPeriod(period)}
+              >
+                {t(`transactions.periods.${period}`)}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="form-actions">
         <Button type="submit" variant="primary" isLoading={isSubmitting}>
