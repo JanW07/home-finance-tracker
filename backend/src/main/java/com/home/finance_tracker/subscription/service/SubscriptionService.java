@@ -116,14 +116,17 @@ public class SubscriptionService {
     public void generateDueTransactions(){
         User currentUser = currentUserProvider.getLoggedInUser();
 
-        List<Subscription> subscriptions = subscriptionRepository.findByUserIdAndStatusAndNextBillingPeriodLessThanEqual(currentUser.getId(), SubscriptionStatus.ACTIVE, LocalDate.now());
+        List<Subscription> subscriptions = subscriptionRepository
+                .findByUserIdAndStatusAndNextBillingPeriodLessThanEqual(
+                        currentUser.getId(), SubscriptionStatus.ACTIVE, LocalDate.now()
+                );
         if(subscriptions.isEmpty()){
             return;
         }
 
-        subscriptions.stream().map(subscription -> {
+        subscriptions.forEach(subscription -> {
             subscription.setNextBillingPeriod(subscription.getBillingPeriod().nextDateFrom(LocalDate.now()));
-            return subscriptionRepository.save(subscription);
+            subscriptionRepository.save(subscription);
         });
     }
 
