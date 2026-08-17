@@ -16,6 +16,7 @@
   "dashboard": {
     "title": "Panel Główny",
     "subtitle": "Zarządzaj swoimi finansami w jednym miejscu",
+    "quickLinks": "Szybki dostęp",
     "categories": {
       "title": "Kategorie",
       "description": "Zarządzaj kategoriami wydatków i przychodów"
@@ -27,6 +28,18 @@
     "subscriptions": {
       "title": "Subskrypcje",
       "description": "Zarządzaj subskrypcjami i płatnościami cyklicznymi"
+    },
+    "stats": {
+      "previousMonth": "Poprzedni miesiąc",
+      "nextMonth": "Następny miesiąc",
+      "income": "Przychody",
+      "expense": "Wydatki",
+      "balance": "Bilans",
+      "subscriptionsShare": "Udział subskrypcji",
+      "categoryBreakdown": "Podział na kategorie",
+      "monthlyTrend": "Trend miesięczny",
+      "topTransactions": "Największe transakcje",
+      "noData": "Brak danych za wybrany okres"
     }
   },
   "theme": {

@@ -1,0 +1,36 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: 100%;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  transition: opacity 0.15s ease;
+}
+
+.dashboard-content.is-refreshing {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.dashboard-quick-links {
+  margin-top: 0.5rem;
+}
+
+.dashboard-quick-links-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
