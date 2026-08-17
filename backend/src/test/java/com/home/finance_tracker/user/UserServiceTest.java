@@ -1,4 +1,4 @@
-package com.home.finance_tracker.user.service;
+package com.home.finance_tracker.user;
 
 import com.home.finance_tracker.core.shared.infrastructure.exception.AppException;
 import com.home.finance_tracker.core.shared.infrastructure.exception.ErrorCode;
@@ -7,6 +7,7 @@ import com.home.finance_tracker.user.dto.UserResponseDTO;
 import com.home.finance_tracker.user.entity.User;
 import com.home.finance_tracker.user.mapper.UserMapper;
 import com.home.finance_tracker.user.repository.UserRepository;
+import com.home.finance_tracker.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
