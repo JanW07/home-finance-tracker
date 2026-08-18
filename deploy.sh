@@ -20,6 +20,7 @@ fi
 echo "==> Pobieranie najnowszej wersji z gałęzi '$BRANCH'..."
 git fetch origin
 git reset --hard "origin/$BRANCH"
+chmod +x deploy.sh
 
 echo "==> Budowanie obrazów (bez cache warstw bazowych)..."
 docker compose --env-file .env build --pull
