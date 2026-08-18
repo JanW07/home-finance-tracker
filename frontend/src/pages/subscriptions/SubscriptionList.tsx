@@ -38,7 +38,7 @@ export const SubscriptionList: React.FC<SubscriptionListProps> = ({
   });
 
   return (
-    <div className="item-list">
+    <div className="subscription-list">
       {sorted.map((subscription) => (
         <SubscriptionListItem
           key={subscription.id}

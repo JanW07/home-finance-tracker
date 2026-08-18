@@ -1,3 +1,11 @@
+/* Pełnoszerokościowa lista subskrypcji — .item-list (grid kolumn 240px, z common.css)
+   był za ciasny na kartę z ikoną, tytułem, badge'em statusu, kwotą i do 4 przycisków akcji. */
+.subscription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
 .subscription-card-cancelled {
   opacity: 0.5;
   border-left-color: var(--color-border, rgba(255, 255, 255, 0.15));

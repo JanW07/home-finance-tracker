@@ -34,6 +34,21 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Pełnoszerokościowa lista transakcji — .item-list (grid kolumn 240px, z common.css)
+   był za ciasny na kartę z ikoną, tytułem, badge'em, kwotą i dwoma przyciskami akcji. */
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.item-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
 .transaction-card {
   border-left: 3px solid transparent;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -56,6 +71,9 @@
   min-width: 40px;
   border-radius: 12px;
   font-size: 1.1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .bubble-income { background: color-mix(in srgb, var(--color-income, #34d399) 18%, transparent); }

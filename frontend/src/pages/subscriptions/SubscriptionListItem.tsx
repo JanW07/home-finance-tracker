@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../../components/common/Button";
 import type { SubscriptionResponseDTO } from "../../types/subscription";
 import { Badge } from "../../components/common/Badge";
+import { getDisplayIcon } from "../../utils/icon";
 
 interface SubscriptionListItemProps {
   subscription: SubscriptionResponseDTO;
@@ -28,7 +29,7 @@ export const SubscriptionListItem: React.FC<SubscriptionListItemProps> = ({
   return (
     <div className={`item-card subscription-card ${isCancelled ? 'subscription-card-cancelled' : isIncome ? 'transaction-card-income' : 'transaction-card-expense'}`}>
       <span className={`transaction-icon-bubble ${isIncome ? 'bubble-income' : 'bubble-expense'}`}>
-        {subscription.category?.icon || '🔄'}
+        {getDisplayIcon(subscription.category?.icon, '🔄')}
       </span>
       <div className="item-body">
         <div className="item-header-row">

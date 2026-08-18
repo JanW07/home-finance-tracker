@@ -64,7 +64,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({
                 {dayNet >= 0 ? '+' : ''}{dayNet.toFixed(2)} PLN
               </span>
             </div>
-            <div className="item-list">
+            <div className="transaction-list">
               {items.map((transaction) => (
                 <TransactionListItem
                   key={transaction.id}

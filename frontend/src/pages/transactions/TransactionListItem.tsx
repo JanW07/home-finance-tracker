@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import type { TransactionResponseDTO } from "../../types/transaction";
 import { Badge } from "../../components/common/Badge";
 import { Button } from "../../components/common/Button";
+import { getDisplayIcon } from "../../utils/icon";
 
 interface TransactionListItemProps {
   transaction: TransactionResponseDTO;
@@ -19,7 +20,7 @@ export const TransactionListItem: React.FC<TransactionListItemProps> = ({
   return (
     <div className={`item-card transaction-card ${isIncome ? 'transaction-card-income' : 'transaction-card-expense'}`}>
       <span className={`transaction-icon-bubble ${isIncome ? 'bubble-income' : 'bubble-expense'}`}>
-        {transaction.category?.icon || (isIncome ? '💰' : '💸')}
+        {getDisplayIcon(transaction.category?.icon, isIncome ? '💰' : '💸')}
       </span>
       <div className="item-body">
         <div className="item-header-row">
