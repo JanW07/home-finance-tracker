@@ -1,0 +1,17 @@
+/* Pełnoszerokościowa lista wierszy zamiast grida kafelków —
+   odporna na długość nazwy kategorii, spójna z listą transakcji/subskrypcji. */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.category-row {
+  width: 100%;
+}
+
+.category-row .item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

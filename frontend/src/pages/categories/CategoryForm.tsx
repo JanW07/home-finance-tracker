@@ -4,12 +4,19 @@ import type { CategoryResponseDTO, CategoryRequestDTO } from '../../types/catego
 import { FormCard } from '../../components/common/FormCard';
 import { Input } from '../../components/common/Input';
 import { Button } from '../../components/common/Button';
+import './CategoryForm.css';
 
 interface CategoryFormProps {
   editingCategory: CategoryResponseDTO | null;
   onSubmit: (dto: CategoryRequestDTO) => Promise<void>;
   onCancel: () => void;
 }
+
+const ICON_OPTIONS = [
+  '🏠', '🚗', '🛒', '🍔', '❤️', '🎬', '✈️', '💰',
+  '🎁', '📱', '👕', '📚', '☕', '🐾', '⚡', '💳',
+  '🏥', '🎓', '🎮', '🧾',
+];
 
 export const CategoryForm: React.FC<CategoryFormProps> = ({
   editingCategory,
@@ -60,15 +67,27 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         onChange={(e) => setName(e.target.value)}
         required
       />
-      <Input
-        label={t('categories.iconLabel')}
-        placeholder={t('categories.iconPlaceholder')}
-        value={icon}
-        onChange={(e) => setIcon(e.target.value)}
-        maxLength={2}
-      />
+
+      <div className="form-field">
+        <span className="form-label">{t('categories.iconLabel')}</span>
+        <div className="icon-picker" role="group" aria-label={t('categories.iconLabel')}>
+          {ICON_OPTIONS.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={`icon-picker-option ${icon === option ? 'active' : ''}`}
+              onClick={() => setIcon(option)}
+              aria-pressed={icon === option}
+              title={option}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="form-actions">
-        <Button type="submit" variant="primary" isLoading={isSubmitting}>
+        <Button type="submit" variant="primary" isLoading={isSubmitting} disabled={!icon}>
           {editingCategory ? t('common.save') : t('common.add')}
         </Button>
         {editingCategory && (

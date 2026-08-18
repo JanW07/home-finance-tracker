@@ -14,7 +14,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({ category, on
   const { t } = useTranslation();
 
   return (
-    <div className="item-card">
+    <div className="item-card category-row">
       <span className="item-icon">{getDisplayIcon(category.icon, '📁')}</span>
       <div className="item-body">
         <span className="item-title" title={category.name}>{category.name}</span>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { CategoryResponseDTO } from '../../types/category';
 import { CategoryListItem } from './CategoryListItem';
+import './CategoryList.css';
 
 interface CategoryListProps {
   categories: CategoryResponseDTO[];
@@ -17,7 +18,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({ categories, onEdit, 
   }
 
   return (
-    <div className="item-list">
+    <div className="category-list">
       {categories.map((category) => (
         <CategoryListItem key={category.id} category={category} onEdit={onEdit} onDelete={onDelete} />
       ))}
