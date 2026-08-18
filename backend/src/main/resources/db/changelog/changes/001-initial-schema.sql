@@ -8,6 +8,10 @@ CREATE TABLE users (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO users (id, username, email, password_hash, created_at) VALUES
+(1, 'admin', 'admin.admin@admin.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '2025-01-10 08:00:00');
+SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));
+
 CREATE TABLE categories (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,

@@ -1,4 +1,4 @@
---changeset dev:003-subscription
+--changeset dev:002-subscription
 
 CREATE TABLE subscriptions (
     id BIGSERIAL PRIMARY KEY,
