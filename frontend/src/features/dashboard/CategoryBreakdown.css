@@ -4,6 +4,66 @@
   gap: 1.1rem;
 }
 
+.category-breakdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.view-mode-toggle {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+}
+
+.view-mode-toggle button {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.view-mode-toggle button:hover {
+  color: var(--text-primary);
+}
+
+.view-mode-toggle button.active {
+  background-color: var(--accent-color);
+  color: var(--on-accent);
+}
+
+.category-breakdown-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.9rem;
+  transition: min-height 0.2s ease;
+}
+
+.category-breakdown-body > .empty-state {
+  margin: auto;
+  text-align: center;
+}
+
+/* Stałe wysokości per widok — dopasuj px, jeśli realne wiersze różnią się od tych szacunków */
+.category-breakdown-body-donut {
+  min-height: 600px; /* wykres 280px + do 5 wierszy listy + przycisk */
+}
+
+.category-breakdown-body-bars {
+  min-height: 380px; /* do 5 wierszy z paskiem + przycisk */
+}
+
 .category-breakdown-chart {
   margin: 0 -0.5rem;
 }
@@ -46,4 +106,56 @@
   font-variant-numeric: tabular-nums;
   min-width: 44px;
   text-align: right;
+}
+
+.category-breakdown-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.category-breakdown-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.category-breakdown-bar-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.category-breakdown-bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.category-breakdown-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.25s ease;
+}
+
+.show-more-toggle {
+  align-self: center;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.show-more-toggle:hover {
+  color: var(--text-primary);
 }

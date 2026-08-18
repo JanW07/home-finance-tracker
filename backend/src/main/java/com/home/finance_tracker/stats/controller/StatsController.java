@@ -50,7 +50,7 @@ public class StatsController {
     public ResponseEntity<List<TopTransactionResponseDTO>> getTopTransactions(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth month,
             @RequestParam TransactionType type,
-            @RequestParam(defaultValue = "5") int limit) {
+            @RequestParam(defaultValue = "15") int limit) {
 
         return ResponseEntity.ok(statsService.getTopTransactions(month, type, limit));
     }

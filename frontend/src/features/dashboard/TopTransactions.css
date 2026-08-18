@@ -1,3 +1,16 @@
+.top-transactions-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.9rem;
+  min-height: 320px; /* stała rezerwacja ~5 wierszy — dopasuj, jeśli realny wiersz różni się wysokością */
+}
+
+.top-transactions-body > .empty-state {
+  margin: auto;
+  text-align: center;
+}
+
 .top-transactions-list {
   display: flex;
   flex-direction: column;
@@ -12,4 +25,21 @@
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   margin-left: auto;
+}
+
+.show-more-toggle {
+  align-self: center;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.show-more-toggle:hover {
+  color: var(--text-primary);
 }

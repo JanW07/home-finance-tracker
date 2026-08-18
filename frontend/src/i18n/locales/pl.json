@@ -39,7 +39,10 @@
       "categoryBreakdown": "Podział na kategorie",
       "monthlyTrend": "Trend miesięczny",
       "topTransactions": "Największe transakcje",
-      "noData": "Brak danych za wybrany okres"
+      "noData": "Brak danych za wybrany okres",
+      "viewMode": "Widok wykresu",
+      "viewDonut": "Donut",
+      "viewBars": "Paski"
     }
   },
   "theme": {

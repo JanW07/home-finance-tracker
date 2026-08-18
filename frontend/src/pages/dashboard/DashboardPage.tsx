@@ -63,10 +63,7 @@ export const DashboardPage: React.FC = () => {
   return (
     <div className="dashboard-page">
       <header className="page-header page-header-row">
-        <div>
-          <h1>{t('dashboard.title')}</h1>
-          <p className="home-subtitle">{t('dashboard.subtitle')}</p>
-        </div>
+        <h1 className="page-title">{t('dashboard.title')}</h1>
         <MonthSelector value={month} onChange={setMonth} />
       </header>
 
