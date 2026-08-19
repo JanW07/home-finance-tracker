@@ -54,6 +54,13 @@ services:
       - "80:80"
     networks:
       - internal
+    labels:
+      - "glance.hide=false"
+      - "glance.id=financetracker"
+      - "glance.name=FinanceTracker"
+      - "glance.icon=si:cashapp"
+      - "glance.url=http://192.168.68.57"
+      - "glance.description=Śledzenie finansów (w budowie — pusta baza)"
 
 networks:
   internal:
